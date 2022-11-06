@@ -1,21 +1,16 @@
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { Post } from "../types/post";
-import { ResponseError } from "../types/error";
+import { ErrorResponse } from "../types/error";
 import logger from "../utils/logger";
+import db from "../utils/db";
 
 export const getPosts = async (
   req: NextApiRequest,
-  res: NextApiResponse<Post[] | [] | ResponseError>
+  res: NextApiResponse<Post[] | [] | ErrorResponse>
 ) => {
   try {
-    const db = await open({
-      filename: "./db.sqlite",
-      driver: sqlite3.Database,
-    });
-    const result = await db.all("SELECT * FROM Post");
+    const dbCur = await db.getCur();
+    const result = await dbCur.all("SELECT * FROM Post");
     res.status(200).json(result);
   } catch (error) {
     logger.write(error);
