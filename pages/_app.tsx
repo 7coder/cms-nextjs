@@ -1,6 +1,17 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "bootstrap/dist/css/bootstrap.css";
+import type { AppProps } from "next/app";
+import Navigation from "components/Navigation";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <>
+      <div className="container">
+        <h3 className="text-center py-2">Simple CMS</h3>
+        <Navigation />
+        <Component {...pageProps} />
+      </div>
+    </>
+  );
+};
+
+export default App;
