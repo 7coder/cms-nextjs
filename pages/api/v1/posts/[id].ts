@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Post } from "@/src/types/post";
+import { getPostById } from "@/src/handlers/post";
 
-const PostApiHandler = (req: NextApiRequest, res: NextApiResponse<Post>) => {
-  res.status(200).json({
-    id: 1,
-    title: "test 1",
-    content: "some content",
-    createdAt: new Date(),
-  });
+const PostApiHandler = (req: NextApiRequest, res: NextApiResponse) => {
+  switch (req.method) {
+    case "GET":
+      return getPostById(req, res);
+    default:
+      return res.status(405).json({});
+  }
 };
 
 export default PostApiHandler;
