@@ -1,5 +1,4 @@
---Up
-
+-- Up
 CREATE TABLE Post (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
@@ -8,5 +7,5 @@ CREATE TABLE Post (
 );
 
 
---Down
+-- Down
 DROP TABLE Post;
