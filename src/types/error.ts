@@ -1,3 +1,3 @@
-export type ResponseError = {
+export type ErrorResponse = {
   message: string;
 };
