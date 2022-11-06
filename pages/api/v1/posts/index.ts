@@ -8,7 +8,7 @@ const PostsApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       return await getPosts(req, res);
     case "POST":
-      return createPost(req, res);
+      return await createPost(req, res);
     default:
       return res.status(405).json({});
   }
