@@ -23,21 +23,33 @@ export const createPost = async (
 
     if (result) return res.status(200).json(result);
 
-    res.status(404).json({ message: "NotFoud" });
+    logger.write({ message: "Post not found after saving" });
+
+    res.status(404).json({ message: "Not found" });
   } catch (error) {
     logger.write(error);
     res.status(500).json({ message: "Something goes wrong" });
   }
 };
 
-export const getPostById = (
+export const getPostById = async (
   req: NextApiRequest,
-  res: NextApiResponse<Post>
+  res: NextApiResponse<Post | ErrorResponse>
 ) => {
-  res.status(200).json({
-    id: 1,
-    title: "test 1",
-    content: "some content",
-    createdAt: new Date(),
-  });
+  try {
+    const idParam: string = req.query.id as string;
+    const dbCur = await db.getCur();
+
+    const result: Post | undefined = await dbCur.get(
+      "SELECT * FROM Post WHERE id = ?",
+      idParam
+    );
+
+    if (result) return res.status(200).json(result);
+
+    res.status(404).json({ message: "Not found" });
+  } catch (error) {
+    logger.write(error);
+    res.status(500).json({ message: "Something goes wrong" });
+  }
 };
