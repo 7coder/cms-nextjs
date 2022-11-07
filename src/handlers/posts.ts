@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Post } from "../types/post";
-import { ErrorResponse } from "../types/error";
+import { ErrorResponse } from "../types/response";
 import logger from "../utils/logger";
 import db from "../utils/db";
 
