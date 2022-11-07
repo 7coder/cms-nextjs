@@ -1,8 +1,11 @@
 import { PostCreationForm } from "@/src/types/post";
 import http from "@/src/utils/http";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const PostCreate: React.FC = () => {
+  const router = useRouter();
+
   const initialFormData = { title: "", content: "" };
   const [formData, setFormData] = useState<PostCreationForm>({
     ...initialFormData,
@@ -17,9 +20,25 @@ const PostCreate: React.FC = () => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const emptyKeys = Object.keys(formData).reduce(
+      (acc: number, next: string) => {
+        if (formData[next as keyof PostCreationForm] === "") {
+          acc += 1;
+        }
+        return acc;
+      },
+      0
+    );
+
+    if (Object.keys(formData).length === emptyKeys) return;
+
     const res = await http.postRq("/api/v1/posts", formData);
-    if (res) {
+    if (res.status === 200) {
       setFormData({ ...formData, ...initialFormData });
+      router.push("/");
+    } else {
+      return window.alert(`${res.status} | ${res.json.message}`);
     }
   };
 

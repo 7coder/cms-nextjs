@@ -11,12 +11,13 @@ const PostPage: React.FC = () => {
   const [post, setPost] = useState<Post | null>(null);
 
   const fetchPost = async (id: string) => {
-    setLoading(true);
     if (id) {
+      setLoading(true);
       const res = await http.getRq(`/api/v1/posts/${id}`);
-      setPost(res);
+      if (res.status === 401) return router.push("/login");
+      setPost(res.json);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

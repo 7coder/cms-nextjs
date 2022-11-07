@@ -10,8 +10,8 @@ const Index: React.FC = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const posts = await http.getRq("/api/v1/posts");
-      setPosts(posts);
+      const res = await http.getRq("/api/v1/posts");
+      setPosts(res.json);
     } catch (e) {
       window.alert(e);
     }
