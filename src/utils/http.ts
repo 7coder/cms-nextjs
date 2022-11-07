@@ -1,7 +1,10 @@
 const getRq = async (url: string) => {
   const response = await fetch(url);
   const json = await response.json();
-  return json;
+  return {
+    status: response.status,
+    json,
+  };
 };
 
 const postRq = async (url: string, body: object) => {
@@ -14,7 +17,10 @@ const postRq = async (url: string, body: object) => {
     body: JSON.stringify(body),
   });
   const json = await response.json();
-  return json;
+  return {
+    status: response.status,
+    json,
+  };
 };
 
 export default {
