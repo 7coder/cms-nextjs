@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   return (
     <div className="row justify-content-md-center">
       <div className="col-4 pt-2">
-        <p>Login</p>
+        <h3>Login</h3>
         <form onSubmit={onSubmitHandler}>
           <input
             className="form-control mb-3"
