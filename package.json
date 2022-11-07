@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@types/node": "18.11.9",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.5.1",
-    "@types/jsonwebtoken": "^8.5.9"
+    "@types/jsonwebtoken": "^8.5.9",
+    "cypress": "^10.11.0"
   }
 }
